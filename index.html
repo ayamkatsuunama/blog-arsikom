@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Usability CamScanner</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:light;--latte:#FFF8E7;--red:#930500;--blue:#95BBEA;--pink:#F9C6D2;--mar:#7B1E3C;--rd:#DB3236;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0}
+body{background:var(--latte);color:var(--mar);font:16px/1.65 'DM Sans',system-ui,sans-serif;overflow-x:hidden}
+h1,h2,h3{font-family:'DM Serif Display',Georgia,serif;font-weight:400;line-height:1.1}
+a{color:inherit}
+section{position:relative;min-height:100vh}
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s,transform .9s}.rv.in{opacity:1;transform:none}
+/* slide 1 */
+#s1{background-color:#FFF6EA;background-image:linear-gradient(#EBDCD2 1px,transparent 1px),linear-gradient(90deg,#EBDCD2 1px,transparent 1px);background-size:34px 34px}
+.bar{background:var(--pink);padding:14px 32px;display:flex;justify-content:space-between;align-items:center;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:500;position:relative;z-index:3}
+.bar::after{content:"";position:absolute;left:0;right:0;top:100%;height:14px;background:radial-gradient(circle at 14px 0,var(--pink) 13px,transparent 14px) 0 0/28px 14px repeat-x}
+.bar nav{display:flex;gap:30px;flex:1}.bar nav:last-child{justify-content:flex-end}
+.bar a{text-decoration:none}
+.logo{font-weight:700;font-size:1.7rem;letter-spacing:-.04em;text-transform:none;color:var(--mar)}
+.hero{display:grid;grid-template-columns:1.1fr 1fr;align-items:center;gap:30px;padding:70px 6vw 80px;min-height:calc(100vh - 50px)}
+.hero small{font-size:.78rem;letter-spacing:.04em}
+.hero h1{font-size:clamp(2.6rem,6vw,4.7rem);margin:14px 0 22px;letter-spacing:-.01em}
+.hero p{max-width:380px;font-size:.9rem;margin-bottom:22px}
+.btn{display:inline-block;background:#B4ABF1;color:#2E2470;font-size:.72rem;letter-spacing:.06em;font-weight:700;padding:10px 20px;border-radius:4px;text-decoration:none}
+.arrow{margin:0 0 0 70px;display:block}
+.vis{position:relative;display:grid;place-items:center;min-height:380px}
+.stage{transition:transform .25s;width:min(390px,82%)}
+.logo3d{width:100%;display:block;animation:fl 5s ease-in-out infinite;filter:drop-shadow(0 18px 18px #7B1E3C33)}
+.scan{animation:sc 2.6s ease-in-out infinite alternate}
+@keyframes sc{from{transform:translateY(-52px)}to{transform:translateY(60px)}}
+@keyframes fl{50%{transform:translateY(-12px)}}
+.d{position:absolute;font-size:1.7rem;animation:fl 4s ease-in-out infinite}
+.note{position:absolute;right:0;top:30%;font:600 1.5rem/1 Caveat,cursive;transform:rotate(-8deg);color:var(--mar)}
+/* slide 2 */
+.s2{background:var(--rd);padding:64px 6vw;display:flex;flex-direction:column;justify-content:center}
+.paper{background:var(--latte);max-width:1100px;width:100%;margin:0 auto;padding:96px 8% 54px;position:relative}
+.paper::before{content:"";position:absolute;top:0;left:0;right:0;height:60px;background:radial-gradient(circle at 28px 6px,var(--rd) 22px,transparent 23px) 0 0/56px 60px repeat-x}
+.eye{text-align:center;font-family:'DM Serif Display',Georgia,serif;letter-spacing:.04em;color:#B8566F;font-size:1.1rem}
+.paper h2{text-align:center;font-size:clamp(2.4rem,6vw,4rem);margin:4px 0 34px;letter-spacing:.02em}
+.paper p{margin-bottom:1.1em}
+.refs{max-width:1100px;width:100%;margin:28px auto 0;background:var(--pink);border-radius:34px;padding:20px 32px;font-size:.85rem;letter-spacing:.04em;text-transform:uppercase;display:flex;flex-wrap:wrap;gap:8px 22px;align-items:center;color:var(--mar)}
+.refs a{font-weight:700;text-decoration:underline}
+/* slide 3 */
+.s3{background:var(--latte);display:grid;grid-template-columns:1fr 1fr;gap:5vw;align-items:center;padding:90px 7vw}
+.l3>*{transition:opacity .3s,transform .3s}.l3.sw>*{opacity:0;transform:translateX(-26px)}
+.l3 small{color:var(--red);font-weight:700}
+.l3 h2{font-size:clamp(2.2rem,5vw,3.6rem);color:var(--red);margin:10px 0 18px}
+.l3 p{max-width:470px;color:#5A1A22}
+.opts{display:grid;gap:22px;padding:8px 18px}
+.opt{display:flex;align-items:center;gap:20px;padding:22px 26px;border:2px solid var(--red);border-radius:28px;background:#B9D2F3;color:var(--red);font:inherit;text-align:left;cursor:pointer;transition:transform .7s cubic-bezier(.2,.9,.3,1.3),background .5s,color .5s,box-shadow .5s}
+.opt b{display:block;font:400 1.35rem 'DM Serif Display',Georgia,serif}.opt span{font-size:.85rem}
+.opt.on{transform:scale(1.06) translateX(-10px);background:var(--red);color:var(--latte);box-shadow:0 16px 32px #93050040}
+.dot{position:relative;flex:none;width:64px;height:64px;border-radius:50%;background:var(--latte);border:3px solid var(--red);display:grid;place-items:center;font-size:1.7rem;transition:transform .7s cubic-bezier(.2,.9,.3,1.6)}
+.on .dot{transform:scale(1.22) rotate(-8deg);border-color:var(--pink)}
+.dot::before,.dot::after{position:absolute;color:var(--red);animation:tw 1.7s infinite}
+.on .dot::before,.on .dot::after{color:var(--pink)}
+.dot::before{content:"✦";top:-10px;right:-8px;font-size:1rem}
+.dot::after{content:"✧";bottom:-8px;left:-10px;font-size:.9rem;animation-delay:.8s}
+@keyframes tw{50%{opacity:.15;transform:scale(.5) rotate(50deg)}}
+/* waves */
+.wave{position:absolute;left:0;right:0;top:0;height:40px;background:var(--wc);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 40'%3E%3Cpath d='M0 0H120V20Q90 40 60 20T0 20Z'/%3E%3C/svg%3E") 0 0/120px 100% repeat-x;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 40'%3E%3Cpath d='M0 0H120V20Q90 40 60 20T0 20Z'/%3E%3C/svg%3E") 0 0/120px 100% repeat-x}
+.wave.b{top:auto;bottom:0;transform:scaleY(-1)}
+.s4,.s5,.s6{background:var(--latte);padding:110px 6vw}
+.s4 h2,.s5 h2,.s6 h2{color:var(--red);font-size:clamp(2.2rem,5vw,3.4rem);text-align:center}
+.sub{text-align:center;margin:8px auto 30px;max-width:520px}
+/* slide 4 */
+.car{display:flex;align-items:center;gap:14px;max-width:1200px;margin:0 auto}
+.arw{flex:none;width:48px;height:48px;border-radius:50%;border:0;background:var(--red);color:var(--latte);font-size:1.3rem;cursor:pointer}
+.vp{flex:1;min-width:0;overflow:hidden;padding:14px 0}
+.track{display:flex;gap:18px;transition:transform .7s cubic-bezier(.65,0,.35,1)}
+.card{flex:none;min-height:290px;border:2px solid var(--red);border-radius:32px;background:#FFF0CC;padding:28px;cursor:pointer;transition:width .7s cubic-bezier(.65,0,.35,1);overflow:hidden}
+.card h3{font-size:1.45rem;color:var(--red)}
+.ans{max-height:0;opacity:0;transition:max-height .7s,opacity .5s;margin-top:0}
+.card.open .ans{max-height:400px;opacity:1;margin-top:16px}
+.card em{display:block;font-style:normal;font-size:.8rem;margin-top:14px;color:#B8566F}
+.card.open em{display:none}
+/* slide 5 */
+.g5{display:flex;gap:22px;max-width:1200px;margin:30px auto 0;align-items:flex-start}
+.box{flex:1;min-width:0;border-radius:32px;padding:32px;cursor:pointer;transition:flex .8s cubic-bezier(.65,0,.35,1)}
+.box.open{flex:2.4}
+.box.a{background:var(--red);color:var(--latte)}.box.b{background:var(--blue);color:#4A0300}
+.box h3{font-size:1.9rem;margin-bottom:14px}
+.box .tx{max-height:300px;overflow:hidden;transition:max-height .8s;-webkit-mask-image:linear-gradient(#000 60%,transparent);mask-image:linear-gradient(#000 60%,transparent)}
+.box.open .tx{max-height:1800px;-webkit-mask-image:none;mask-image:none}
+.box p{margin-bottom:.8em}.hint{font-size:.8rem;opacity:.8;margin-top:6px}
+/* slide 6 */
+.s6{display:flex;flex-direction:column;justify-content:center}
+.s6 .wrap{max-width:760px;margin:0 auto}
+.s6 p{margin:16px 0}
+.pf{max-width:760px;margin:40px auto 0;padding-top:22px;border-top:2px solid var(--blue);display:grid;grid-template-columns:1fr 1fr;gap:20px;font-size:.9rem}
+.pf b{font-family:'DM Serif Display',Georgia,serif;font-weight:400;font-size:1.2rem;color:var(--red);display:block}
+.pf a{display:block}
+@media(max-width:800px){.hero,.s3,.pf{grid-template-columns:1fr}.bar a:not(.logo){display:none}.bar nav{flex:0}.bar{justify-content:center}.g5{flex-direction:column}.box,.box.open{flex:none;width:100%}.arrow{margin-left:0}.opt.on{transform:scale(1.03)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}}
+</style></head><body>
+
+<section id="s1">
+<header class="bar"><nav><a href="#s2">Pengertian</a><a href="#s3">Aspek</a></nav><a class="logo" href="#s1">Usability</a><nav><a href="#s4">Wawancara</a><a href="#s6">Kesimpulan</a></nav></header>
+<div class="hero">
+<div class="rv"><small>(Tugas Arsikom · uji usability)</small>
+<h1>Seberapa Mudah CamScanner Dipakai?</h1>
+<p>Evaluasi aplikasi pemindai dokumen berdasarkan efektivitas, efisiensi, dan kepuasan pengguna serta beberapa pertanyaan.</p>
+<a class="btn" href="#s2">MULAI MEMBACA</a>
+<svg class="arrow" width="130" height="60" viewBox="0 0 120 60" fill="none" stroke="#7B1E3C" stroke-width="2.2" stroke-linecap="round"><path d="M4 30C10 8 34 4 30 24S6 36 20 46c20 12 60-4 92-8M100 28l12 10-14 8"/></svg></div>
+<div class="vis"><span class="d" style="left:6%;top:8%">📄</span><span class="d" style="right:8%;top:4%;animation-delay:1s">✨</span><span class="d" style="left:2%;bottom:10%;animation-delay:2s">🔍</span>
+<span class="note">scan me<br>if you can!</span>
+<div class="stage"><svg class="logo3d" viewBox="0 0 300 320" role="img" aria-label="Ikon 3D pemindai dokumen">
+<defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8CC0FF"/><stop offset="1" stop-color="#2D57D6"/></linearGradient>
+<linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#DCE8FF"/></linearGradient>
+<linearGradient id="g3" x1="0" x2="1"><stop offset="0" stop-color="#FF4D6D" stop-opacity="0"/><stop offset=".5" stop-color="#FF4D6D"/><stop offset="1" stop-color="#FF4D6D" stop-opacity="0"/></linearGradient>
+<filter id="bl"><feGaussianBlur stdDeviation="9"/></filter></defs>
+<ellipse cx="150" cy="300" rx="100" ry="12" fill="#7B1E3C" opacity=".25" filter="url(#bl)"/>
+<rect x="40" y="62" width="220" height="220" rx="58" fill="#17338F"/>
+<rect x="40" y="46" width="220" height="220" rx="58" fill="url(#g1)"/>
+<path d="M62 100Q70 58 120 56H190" stroke="#fff" stroke-opacity=".5" stroke-width="8" fill="none" stroke-linecap="round"/>
+<g transform="rotate(-6 150 156)"><path d="M92 100a12 12 0 0 1 12-12h70l34 34v104a12 12 0 0 1-12 12H104a12 12 0 0 1-12-12z" fill="#0E2373" opacity=".35" transform="translate(7 9)"/>
+<path d="M92 100a12 12 0 0 1 12-12h70l34 34v104a12 12 0 0 1-12 12H104a12 12 0 0 1-12-12z" fill="url(#g2)"/>
+<path d="M174 88v22a12 12 0 0 0 12 12h22z" fill="#B9CFF7"/>
+<rect x="108" y="130" width="60" height="8" rx="4" fill="#4A78E8"/><rect x="108" y="150" width="84" height="8" rx="4" fill="#9DB8F2"/><rect x="108" y="170" width="76" height="8" rx="4" fill="#9DB8F2"/><rect x="108" y="190" width="50" height="8" rx="4" fill="#9DB8F2"/></g>
+<rect class="scan" x="64" y="162" width="172" height="10" rx="5" fill="url(#g3)"/>
+<path d="M66 82V70q0-8 8-8h12M234 82V70q0-8-8-8h-12M66 230v12q0 8 8 8h12M234 230v12q0 8-8 8h-12" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round"/></svg></div>
+</div></div>
+</section>
+
+<section id="s2" class="s2">
+<div class="paper rv"><p class="eye">Apa itu?</p><h2>USABILITY</h2>
+<p>Seberapa mudah dan efektif seseorang dapat mencapai tujuannya saat menggunakan suatu produk atau sistem, sekaligus mendapatkan pengalaman yang positif.</p>
+<p>Usability mengacu pada pengukuran seberapa mudah pengguna dapat mencapai tujuannya ketika menggunakan suatu layanan. Hal ini biasanya diukur melalui metodologi penelitian yang telah ditetapkan dengan istilah “pengujian usability” (usability testing), yang mencakup tingkat keberhasilan dan kepuasan pelanggan.</p>
+<p>Usability merupakan salah satu bagian dari cakupan pengalaman pengguna yang lebih luas, yaitu User Experience (UX). Sementara UX mencakup perancangan keseluruhan pengalaman dalam menggunakan suatu produk, usability berfokus pada mekanisme untuk memastikan bahwa produk dapat berfungsi sebaik mungkin bagi penggunanya.</p></div>
+<div class="refs"><b>Referensi:</b></div>
+</section>
+
+<section id="s3" class="s3">
+<div class="l3 rv"><small>Mengenal lebih dekat</small><h2 id="t3"></h2><p id="d3"></p></div>
+<div class="opts" id="opts"></div>
+</section>
+
+<section id="s4" class="s4"><i class="wave" style="--wc:var(--pink)"></i><i class="wave b" style="--wc:var(--blue)"></i>
+<h2>Pertanyaan Wawancara</h2><p class="sub">Geser dengan panah, klik kotak untuk membaca penjelasannya.</p>
+<div class="car"><button class="arw" id="pv" aria-label="Sebelumnya">‹</button><div class="vp"><div class="track" id="tr"></div></div><button class="arw" id="nx" aria-label="Berikutnya">›</button></div>
+</section>
+
+<section id="s5" class="s5"><i class="wave" style="--wc:var(--blue)"></i><i class="wave b" style="--wc:var(--pink)"></i>
+<h2>Kekurangan dan Saran</h2><p class="sub">Klik salah satu kotak untuk memperlebar, klik lagi untuk mengecilkan.</p>
+<div class="g5">
+<div class="box a" tabindex="0"><h3>Kekurangan sistem</h3><div class="tx">
+<p>Beberapa kekurangan CamScanner berdasarkan analisis usability antara lain:</p>
+<p><b>1. Terlalu banyak fitur:</b> Banyaknya pilihan fitur dapat membuat pengguna baru kesulitan memahami fungsi setiap menu.</p>
+<p><b>2. Iklan dan penawaran Premium:</b> Dapat mengganggu konsentrasi pengguna ketika sedang memindai dokumen.</p>
+<p><b>3. Fitur tertentu berbayar:</b> Beberapa fungsi tambahan hanya dapat digunakan oleh pengguna Premium.</p>
+<p><b>4. Deteksi dokumen kurang akurat dalam kondisi tertentu:</b> Posisi dokumen yang miring atau pencahayaan yang kurang baik dapat menyebabkan hasil pemindaian kurang maksimal.</p>
+<p><b>5. Pengeditan membutuhkan penyesuaian manual:</b> Pengguna terkadang perlu memperbaiki hasil pemindaian agar sesuai dengan dokumen aslinya.</p>
+</div><div class="hint">Klik untuk memperlebar</div></div>
+<div class="box b" tabindex="0"><h3>Saran perbaikan</h3><div class="tx">
+<p>Berdasarkan permasalahan usability yang ditemukan, berikut beberapa saran perbaikan yang dapat diterapkan pada aplikasi CamScanner:</p>
+<p><b>1. Menyederhanakan tampilan menu:</b> Mengelompokkan fitur berdasarkan fungsi, seperti pemindaian, pengeditan, dan penyimpanan agar lebih mudah dipahami oleh pengguna baru.</p>
+<p><b>2. Mengurangi iklan yang mengganggu:</b> Menempatkan iklan pada bagian yang tidak menghalangi aktivitas utama pengguna.</p>
+<p><b>3. Memberikan akses fitur gratis yang lebih optimal:</b> Menyediakan fitur dasar yang cukup lengkap sehingga pengguna tetap dapat melakukan pekerjaan tanpa harus berlangganan.</p>
+<p><b>4. Meningkatkan kemampuan deteksi dokumen:</b> Mengoptimalkan sistem pemindaian agar dapat mendeteksi batas dokumen dengan lebih akurat meskipun posisi kertas kurang lurus.</p>
+<p><b>5. Menyederhanakan proses pengeditan:</b> Menambahkan pengaturan otomatis yang lebih optimal sehingga pengguna tidak perlu terlalu sering melakukan penyesuaian secara manual.</p>
+</div><div class="hint">Klik untuk memperlebar</div></div>
+</div></section>
+
+<section id="s6" class="s6"><i class="wave" style="--wc:var(--pink)"></i><i class="wave b" style="--wc:var(--red)"></i>
+<div class="wrap rv"><h2>Kesimpulan</h2>
+<p>Berdasarkan hasil analisis usability, CamScanner merupakan aplikasi pemindai dokumen yang cukup efektif, efisien, dan mudah digunakan. Aplikasi ini membantu pengguna mengubah dokumen fisik menjadi digital dengan praktis melalui smartphone, mulai dari proses pemindaian, pengeditan, hingga penyimpanan dokumen.</p>
+<p>Meskipun demikian, masih terdapat beberapa kekurangan, seperti iklan yang mengganggu, keterbatasan fitur gratis, serta beberapa menu yang kurang mudah dipahami oleh pengguna baru. Oleh karena itu, diperlukan perbaikan pada tampilan navigasi, pengurangan iklan, dan peningkatan kualitas pemindaian agar aplikasi lebih nyaman dan mudah digunakan.</p></div>
+<div class="pf"><div><b>Penulis</b>[Elza Arsya Putri]<br>[8020250092] · [01PT3 / Arsikom]</div><div><b>Referensi</b><span id="rf"></span></div></div>
+</section>
+
+<script>
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const R=[['Digital.gov: Usability','https://digital.gov/topics/usability/']];
+const lk=R.map(r=>`<a href="${r[1]}" target="_blank" rel="noopener">${r[0]}</a>`);
+$('.refs').insertAdjacentHTML('beforeend',lk.join(''));$('#rf').innerHTML=lk.join('');
+/* reveal */
+const io=new IntersectionObserver(e=>e.forEach(x=>x.isIntersecting&&x.target.classList.add('in')),{threshold:.12});$$('.rv').forEach(e=>io.observe(e));
+/* smooth inertial scroll */
+let cur=scrollY,tg=cur,run=false;const mx=()=>document.documentElement.scrollHeight-innerHeight;
+function tick(){cur+=(tg-cur)*.09;if(Math.abs(tg-cur)<.5){cur=tg;run=false}scrollTo(0,cur);if(run)requestAnimationFrame(tick)}
+function go(){if(!run){run=true;requestAnimationFrame(tick)}}
+addEventListener('wheel',e=>{if(e.ctrlKey)return;e.preventDefault();tg=Math.max(0,Math.min(mx(),tg+e.deltaY));go()},{passive:false});
+addEventListener('scroll',()=>{if(!run)cur=tg=scrollY});
+$$('a[href^="#s"]').forEach(a=>a.onclick=e=>{e.preventDefault();tg=Math.min(mx(),$(a.getAttribute('href')).offsetTop);go()});
+/* 3D tilt */
+const st=$('.stage');$('#s1').addEventListener('mousemove',e=>{const r=st.getBoundingClientRect();st.style.transform=`perspective(800px) rotateY(${((e.clientX-r.left)/r.width-.5)*24}deg) rotateX(${-((e.clientY-r.top)/r.height-.5)*24}deg)`});
+/* slide 3 */
+const D=[['📄','Deskripsi CamScanner','Apa itu CamScanner','CamScanner adalah aplikasi pemindai dokumen di ponsel yang mengubah kamera menjadi scanner portabel. Pengguna dapat memotret dokumen, merapikan sudut secara otomatis, memperjelas teks, lalu menyimpannya sebagai PDF atau gambar. Fitur seperti OCR, tanda tangan, dan berbagi berkas membuat aplikasi ini banyak dipakai pelajar, mahasiswa, dan pekerja kantoran.'],
+['🎯','Efektivitas','Berhasil atau tidak','Efektivitas menilai apakah pengguna benar-benar berhasil menyelesaikan tugasnya dengan akurat dan lengkap. Pada CamScanner, ukurannya antara lain apakah dokumen terdeteksi dengan benar, hasil pindai terbaca jelas, dan berkas berhasil disimpan atau dibagikan tanpa kesalahan.'],
+['⚡','Efisiensi','Cepat atau lambat','Efisiensi melihat sumber daya yang dibutuhkan untuk mencapai tujuan, terutama waktu dan jumlah langkah. Semakin sedikit ketukan dari membuka kamera sampai PDF jadi, semakin efisien aplikasinya. Iklan atau pop-up yang menyela justru menurunkannya.'],
+['😊','Kepuasan','Nyaman atau tidak','Kepuasan menggambarkan rasa nyaman dan sikap positif pengguna saat memakai aplikasi. Tampilan yang rapi, respons cepat, dan hasil pindai yang memuaskan membuat pengguna ingin kembali, sedangkan fitur berbayar atau watermark bisa mengurangi kenyamanan.']];
+const O=$('#opts'),L=$('.l3');
+O.innerHTML=D.map(d=>`<button class="opt"><i class="dot">${d[0]}</i><div><b>${d[1]}</b><span>${d[2]}</span></div></button>`).join('');
+function pick(i){$$('.opt').forEach((x,j)=>x.classList.toggle('on',i===j));L.classList.add('sw');setTimeout(()=>{$('#t3').textContent=D[i][1];$('#d3').textContent=D[i][3];L.classList.remove('sw')},i<0?0:300)}
+$$('.opt').forEach((b,i)=>b.onclick=()=>pick(i));pick(0);
+/* slide 4 */
+const Q=[['Apakah aplikasi mudah digunakan?','CamScanner tergolong mudah digunakan karena memiliki fitur utama untuk memindai dokumen yang dapat ditemukan dengan cukup mudah. Namun, bagi pengguna baru, beberapa fitur tambahan mungkin membutuhkan waktu untuk dipahami karena jumlah fitur yang cukup banyak.'],
+['Apakah navigasi jelas?','Navigasi aplikasi cukup jelas karena fitur pemindaian, pengeditan, dan penyimpanan memiliki fungsi masing-masing. Akan tetapi, banyaknya pilihan menu dan fitur tambahan dapat membuat pengguna baru sedikit kebingungan ketika mencari fitur tertentu.'],
+['Apakah user flow sederhana?','User flow adalah urutan langkah dari tujuan awal sampai selesai. Alur penggunaan CamScanner tergolong sederhana. Pengguna hanya perlu membuka aplikasi, mengambil foto dokumen, menyesuaikan hasil pemindaian, kemudian menyimpan atau membagikan dokumen. Namun, apabila hasil pemindaian kurang sesuai, pengguna harus melakukan pengeditan ulang.'],
+['Apakah user merasa nyaman?','engguna cukup nyaman menggunakan CamScanner karena dapat memindai dokumen kapan saja melalui smartphone. Namun, iklan, penawaran Premium, dan beberapa fitur yang dibatasi pada versi gratis dapat mengurangi kenyamanan pengguna.'],
+['Apa kekurangan aplikasi?','Pertanyaan ini mengumpulkan masalah yang dialami pengguna, misalnya watermark pada versi gratis, iklan, fitur penting yang berbayar, atau hasil pindai kurang tajam pada cahaya redup.'],
+['Apa saran perbaikannya?','Pertanyaan ini memberi ruang bagi pengguna menyampaikan usulan, seperti mengurangi iklan, menyederhanakan menu, menambah tutorial singkat, atau memperbaiki deteksi tepi otomatis.']];
+const T=$('#tr'),G=18;let s=0,o=-1;
+T.innerHTML=Q.map(q=>`<div class="card" tabindex="0"><h3>${q[0]}</h3><div class="ans"><p>${q[1]}</p></div><em>Klik untuk membaca penjelasan</em></div>`).join('');
+const C=$$('.card'),vis=()=>innerWidth<700?1:3;
+function lay(){const vw=$('.vp').clientWidth,n=vis(),cw=(vw-G*(n-1))/n;let x=0,xs=[];
+C.forEach((c,i)=>{xs.push(x);const w=i===o?vw:cw;c.style.width=w+'px';c.classList.toggle('open',i===o);x+=w+G});
+T.style.transform=`translateX(${-xs[o>=0?o:s]}px)`}
+C.forEach((c,i)=>{c.onclick=()=>{o=o===i?-1:i;lay()};c.onkeydown=e=>{if(e.key==='Enter')c.click()}});
+$('#nx').onclick=()=>{o=-1;s=Math.min(Q.length-vis(),s+1);lay()};$('#pv').onclick=()=>{o=-1;s=Math.max(0,s-1);lay()};
+addEventListener('resize',()=>{s=Math.min(s,Q.length-vis());lay()});document.fonts&&document.fonts.ready.then(lay);lay();
+/* slide 5 */
+$$('.box').forEach(b=>{b.onclick=()=>{b.classList.toggle('open');$('.hint',b).textContent=b.classList.contains('open')?'Klik untuk mengecilkan':'Klik untuk memperlebar'};b.onkeydown=e=>{if(e.key==='Enter')b.click()}});
+</script></body></html>
