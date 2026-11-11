@@ -94,6 +94,26 @@ section{position:relative;min-height:100vh}
 .pf a{display:block}
 @media(max-width:800px){.hero,.s3,.pf{grid-template-columns:1fr}.bar a:not(.logo){display:none}.bar nav{flex:0}.bar{justify-content:center}.g5{flex-direction:column}.box,.box.open{flex:none;width:100%}.arrow{margin-left:0}.opt.on{transform:scale(1.03)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}}
+/* Styling Kotak Screenshot Interaktif (Membesar & Detail Terbuka) */
+.ss-sec { margin-top: 60px; width: 100%; }
+.ss-sec h3 { text-align: center; font-size: 2rem; color: var(--red); margin-bottom: 24px; }
+.ss-grid { display: flex; gap: 22px; max-width: 1200px; margin: 0 auto; align-items: flex-start; }
+.ss-card { flex: 1; min-width: 0; border: 2px solid var(--red); border-radius: 28px; background: #FFF0CC; padding: 24px; cursor: pointer; transition: flex .8s cubic-bezier(.65,0,.35,1), background .5s, color .5s; }
+.ss-card.open { flex: 2.2; background: var(--red); color: var(--latte); }
+.ss-img-wrap { width: 100%; height: 220px; border-radius: 18px; overflow: hidden; background: #EBDCD2; margin-bottom: 16px; border: 1px solid var(--pink); transition: height .8s cubic-bezier(.65,0,.35,1); }
+.ss-card.open .ss-img-wrap { height: 380px; } /* Foto jadi jauh lebih besar dan jelas saat dibuka */
+.ss-img-wrap img { width: 100%; height: 100%; object-fit: contain; display: block; background: #00000010; }
+.ss-card b { font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: 1.3rem; display: block; margin-bottom: 8px; }
+.ss-card.open b { color: var(--latte); }
+.ss-card:not(.open) b { color: var(--red); }
+.ss-desc { max-height: 0; overflow: hidden; transition: max-height .8s cubic-bezier(.65,0,.35,1), opacity .5s; opacity: 0; }
+.ss-card.open .ss-desc { max-height: 300px; opacity: 1; margin-top: 10px; }
+.ss-hint { font-size: 0.8rem; opacity: 0.8; margin-top: 14px; font-style: italic; }
+
+@media(max-width: 900px) {
+  .ss-grid { flex-direction: column; }
+  .ss-card, .ss-card.open { flex: none; width: 100%; }
+}
 </style></head><body>
 
 <section id="s1">
@@ -106,7 +126,7 @@ section{position:relative;min-height:100vh}
 <svg class="arrow" width="130" height="60" viewBox="0 0 120 60" fill="none" stroke="#7B1E3C" stroke-width="2.2" stroke-linecap="round"><path d="M4 30C10 8 34 4 30 24S6 36 20 46c20 12 60-4 92-8M100 28l12 10-14 8"/></svg></div>
 <div class="vis"><span class="d" style="left:6%;top:8%">📄</span><span class="d" style="right:8%;top:4%;animation-delay:1s">✨</span><span class="d" style="left:2%;bottom:10%;animation-delay:2s">🔍</span>
 <span class="note">scan me<br>if you can!</span>
-<div class="stage"><svg class="logo3d" viewBox="0 0 300 320" role="img" aria-label="Ikon 3D pemindai dokumen">
+<div class="stage"><img src="logo.png" alt="Logo CamScanner" class="logo3d">
 <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8CC0FF"/><stop offset="1" stop-color="#2D57D6"/></linearGradient>
 <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#DCE8FF"/></linearGradient>
 <linearGradient id="g3" x1="0" x2="1"><stop offset="0" stop-color="#FF4D6D" stop-opacity="0"/><stop offset=".5" stop-color="#FF4D6D"/><stop offset="1" stop-color="#FF4D6D" stop-opacity="0"/></linearGradient>
@@ -167,6 +187,58 @@ section{position:relative;min-height:100vh}
 <div class="wrap rv"><h2>Kesimpulan</h2>
 <p>Berdasarkan hasil analisis usability, CamScanner merupakan aplikasi pemindai dokumen yang cukup efektif, efisien, dan mudah digunakan. Aplikasi ini membantu pengguna mengubah dokumen fisik menjadi digital dengan praktis melalui smartphone, mulai dari proses pemindaian, pengeditan, hingga penyimpanan dokumen.</p>
 <p>Meskipun demikian, masih terdapat beberapa kekurangan, seperti iklan yang mengganggu, keterbatasan fitur gratis, serta beberapa menu yang kurang mudah dipahami oleh pengguna baru. Oleh karena itu, diperlukan perbaikan pada tampilan navigasi, pengurangan iklan, dan peningkatan kualitas pemindaian agar aplikasi lebih nyaman dan mudah digunakan.</p></div>
+
+<div class="ss-sec rv">
+  <h3>Tampilan Aplikasi (Screenshot)</h3>
+  <div class="ss-grid">
+    
+    <div class="ss-card" tabindex="0">
+      <div class="ss-img-wrap">
+        <img src="ss1.png" alt="Screenshot 1">
+      </div>
+      <b>Gambar 1</b>
+      <div class="ss-desc">
+        <p>Tampilan Beranda Utama aplikasi CamScanner yang menampilkan daftar dokumen tersimpan dan menu cepat untuk mulai memindai.</p>
+      </div>
+      <div class="ss-hint">Klik untuk memperlebar</div>
+    </div>
+
+    <div class="ss-card" tabindex="0">
+      <div class="ss-img-wrap">
+        <img src="ss2.png" alt="Screenshot 2">
+      </div>
+      <b>Gambar 2</b>
+      <div class="ss-desc">
+        <p>Proses pemindaian (scanning) dokumen menggunakan kamera HP dengan fitur pendeteksi sudut otomatis.</p>
+      </div>
+      <div class="ss-hint">Klik untuk memperlebar</div>
+    </div>
+
+    <div class="ss-card" tabindex="0">
+      <div class="ss-img-wrap">
+        <img src="ss3.png" alt="Screenshot 3">
+      </div>
+      <b>Gambar 3</b>
+      <div class="ss-desc">
+        <p>Fitur pengeditan, pemotongan, dan pemfilteran warna (magic color) untuk memperjelas keterbacaan teks dokumen.</p>
+      </div>
+      <div class="ss-hint">Klik untuk memperlebar</div>
+    </div>
+
+    <div class="ss-card" tabindex="0">
+      <div class="ss-img-wrap">
+        <img src="ss4.png" alt="Screenshot 4">
+      </div>
+      <b>Gambar 4</b>
+      <div class="ss-desc">
+        <p>Opsi pengeksporan dan berbagi dokumen ke berbagai format pilihan seperti PDF, Word, atau gambar JPEG.</p>
+      </div>
+      <div class="ss-hint">Klik untuk memperlebar</div>
+    </div>
+
+  </div>
+</div>
+
 <div class="pf"><div><b>Penulis</b>[Elza Arsya Putri]<br>[8020250092] · [01PT3 / Arsikom]</div><div><b>Referensi</b><span id="rf"></span></div></div>
 </section>
 
@@ -213,4 +285,29 @@ $('#nx').onclick=()=>{o=-1;s=Math.min(Q.length-vis(),s+1);lay()};$('#pv').onclic
 addEventListener('resize',()=>{s=Math.min(s,Q.length-vis());lay()});document.fonts&&document.fonts.ready.then(lay);lay();
 /* slide 5 */
 $$('.box').forEach(b=>{b.onclick=()=>{b.classList.toggle('open');$('.hint',b).textContent=b.classList.contains('open')?'Klik untuk mengecilkan':'Klik untuk memperlebar'};b.onkeydown=e=>{if(e.key==='Enter')b.click()}});
+/* Interaktivitas Klik Kotak Screenshot (Hanya 1 yang membesar secara bergantian) */
+$$('.ss-card').forEach(card => {
+  const hint = $('.ss-hint', card);
+  card.onclick = () => {
+    // Cek apakah kotak ini sedang terbuka
+    const isOpen = card.classList.contains('open');
+
+    // Tutup SEMUA kotak terlebih dahulu dan kembalikan teks hint-nya
+    $$('.ss-card').forEach(c => {
+      c.classList.remove('open');
+      const h = $('.ss-hint', c);
+      if (h) h.textContent = 'Klik untuk memperlebar';
+    });
+
+    // Jika tadinya belum terbuka, buka kotak yang diklik
+    if (!isOpen) {
+      card.classList.add('open');
+      if (hint) hint.textContent = 'Klik untuk mengecilkan';
+    }
+  };
+
+  card.onkeydown = e => {
+    if (e.key === 'Enter') card.click();
+  };
+});
 </script></body></html>
